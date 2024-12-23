@@ -1,0 +1,12 @@
+name: Reusable workflow
+on:
+  workflow_call:
+jobs:
+  ru1-job1:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: write to log
+        run: |
+          echo "I am resuable workflow from common_scripts repository"
+  
