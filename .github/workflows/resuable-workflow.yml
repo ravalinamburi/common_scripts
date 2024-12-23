@@ -8,5 +8,5 @@ jobs:
       - uses: actions/checkout@v2
       - name: write to log
         run: |
-          echo "I am resuable workflow from common_scripts main branch repository"
+          echo "I am resuable workflow from common_scripts repository - main branch "
   
