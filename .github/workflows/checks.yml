@@ -32,22 +32,22 @@ jobs:
 
     - name: Run Docker container
       run: |
-        docker run --name my-github-runner -d docker-registry.qualcomm.com/lint_qipl/u22_py3_11:latest
+        docker run --name my-github-runner -v ${{ github.workspace }}/scripts:/usr/local/bin/scripts -d docker-registry.qualcomm.com/lint_qipl/u22_py3_11:latest
 
     - name: PR Title Check
       if: ${{ inputs.run_pr_title_check }}
       run: |
-        docker exec my-github-runner ./pr-title-check.sh
+        docker exec my-github-runner /usr/local/bin/scripts/pr-title-check.sh
 
     - name: PR Email Check
       if: ${{ inputs.run_pr_email_check }}
       run: |
-        docker exec my-github-runner ./pr-email-check.sh
+        docker exec my-github-runner /usr/local/bin/scripts/pr-email-check.sh
 
     - name: Signed-Off Check
       if: ${{ inputs.run_signed_off_check }}
       run: |
-        docker exec my-github-runner ./signed-off-check.sh
+        docker exec my-github-runner /usr/local/bin/scripts/signed-off-check.sh
 
     - name: Cleanup
       run: |
