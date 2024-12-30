@@ -18,6 +18,8 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
+      with: 
+         repository: ravalinamburi/common_scripts
 
     - name: Pull Docker image
       run: |
@@ -25,7 +27,7 @@ jobs:
 
     - name: Run Docker container
       run: |
-        docker run --name my-github-runner -v ${{ github.workspace }}/scripts:/usr/local/bin/scripts ubuntu:latest tail -f /dev/null
+        docker run --name my-github-runner -v ${{ github.workspace }}/common_scripts/scripts:/usr/local/bin/scripts ubuntu:latest tail -f /dev/null
 
     - name: PR Title Check
       if: ${{ inputs.run_pr_title_check }}
