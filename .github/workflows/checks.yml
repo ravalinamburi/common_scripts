@@ -22,6 +22,10 @@ jobs:
          repository: ravalinamburi/common_scripts
          path: common_scripts
 
+    - name: Make scripts executable
+      run: | 
+        chmod +x ${{ github.workspace }}/common_scripts/scripts/*.sh
+
     - name: Pull Docker image
       run: |
         docker pull ubuntu:latest
