@@ -14,7 +14,7 @@ on:
         type: boolean
 jobs:
   common-checks-on-pr:
-    runs-on: [self-hosted, x86, Linux]
+    runs-on: [self-hosted, x64, Linux]
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
