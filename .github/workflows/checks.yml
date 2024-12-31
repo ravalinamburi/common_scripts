@@ -22,6 +22,12 @@ jobs:
          repository: ravalinamburi/common_scripts
          path: common_scripts
 
+    - name: Write environment variables to a file
+      run: |
+        echo "PR_TITLE=${{ github.event.pull_request.title }}" >> $GITHUB_WORKSPACE/env.list
+        echo "PR_EMAIL=${{ github.event.pull_request.user.email }}" >> $GITHUB_WORKSPACE/env.list
+        # Add more environment variables as needed
+
     - name: Make scripts executable
       run: | 
         chmod +x ${{ github.workspace }}/common_scripts/scripts/*.sh
@@ -32,22 +38,21 @@ jobs:
 
     - name: Run Docker container
       run: |
-        docker run --name my-github-runner -d -v ${{ github.workspace }}/common_scripts/scripts:/usr/local/bin/scripts ubuntu:latest tail -f /dev/null
-
+        docker run --name my-github-runner -d -v ${{ github.workspace }}/common_scripts/scripts:/usr/local/bin/scripts -v ${{ github.workspace }}/env.list:/env.list ubuntu:latest tail -f /dev/null
     - name: PR Title Check
       if: ${{ inputs.run_pr_title_check }}
       run: |
-        docker exec my-github-runner /usr/local/bin/scripts/pr-title-check.sh
+        docker exec my-github-runner /bin/bash -c "source /env.list && /usr/local/bin/scripts/pr-title-check.sh"
 
     - name: PR Email Check
       if: ${{ inputs.run_pr_email_check }}
       run: |
-        docker exec my-github-runner /usr/local/bin/scripts/pr-email-check.sh
+        docker exec my-github-runner /bin/bash -c "source /env.list && /usr/local/bin/scripts//pr-email-check.sh"
 
     - name: Signed-Off Check
       if: ${{ inputs.run_signed_off_check }}
       run: |
-        docker exec my-github-runner /usr/local/bin/scripts/signed-off-check.sh
+        docker exec my-github-runner /bin/bash -c "source /env.list && /usr/local/bin/scripts/signed-off-check.sh"
 
     # Ensure cleanup steps always run, regardless of success/failure of previous steps
     - name: Cleanup Docker container
