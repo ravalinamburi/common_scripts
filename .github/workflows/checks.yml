@@ -49,7 +49,15 @@ jobs:
       run: |
         docker exec my-github-runner /usr/local/bin/scripts/signed-off-check.sh
 
-    - name: Cleanup
+    # Ensure cleanup steps always run, regardless of success/failure of previous steps
+    - name: Cleanup Docker container
+      if: always()
       run: |
         docker stop my-github-runner
         docker rm my-github-runner
+
+    - name: Remove cloned repository
+      if: always()
+      run: |
+        sudo rm -rf ${{ github.workspace }}/common_scripts
+    
