@@ -26,6 +26,7 @@ jobs:
       run: |
         echo "PR_TITLE=${{ github.event.pull_request.title }}" >> $GITHUB_WORKSPACE/env.list
         echo "PR_EMAIL=${{ github.event.pull_request.user.email }}" >> $GITHUB_WORKSPACE/env.list
+        cat $GITHUB_WORKSPACE/env.list
         # Add more environment variables as needed
 
     - name: Make scripts executable
