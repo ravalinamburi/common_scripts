@@ -64,5 +64,5 @@ jobs:
     - name: Remove cloned repository
       if: always()
       run: |
-        sudo rm -rf ${{ github.workspace }}/common_scripts
+        rm -rf ${{ github.workspace }}/common_scripts
     
