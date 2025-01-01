@@ -21,6 +21,7 @@ jobs:
       with: 
          repository: ravalinamburi/common_scripts
          path: common_scripts
+         ref: run_in_container
 
     - name: Write environment variables to a file
       run: |
