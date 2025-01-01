@@ -2,6 +2,8 @@
 
 # Access the PR title from the environment variable
 PR_TITLE="${PR_TITLE}"
+# Debug: Print the PR title
+echo "PR_TITLE: $PR_TITLE"
 
 # Check if the PR title starts with a capital letter
 if [[ ! "$PR_TITLE" =~ ^[A-Z] ]]; then
