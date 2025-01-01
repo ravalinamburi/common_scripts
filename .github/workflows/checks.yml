@@ -43,7 +43,7 @@ jobs:
     - name: PR Title Check
       if: ${{ inputs.run_pr_title_check }}
       run: |
-        docker exec my-github-runner /bin/bash -c "source /env.list && /usr/local/bin/scripts/pr-title-check.sh"
+        docker exec my-github-runner /bin/bash -c "source /env.list && env && /usr/local/bin/scripts/pr-title-check.sh"
 
     - name: PR Email Check
       if: ${{ inputs.run_pr_email_check }}
